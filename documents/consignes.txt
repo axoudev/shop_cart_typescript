@@ -1,0 +1,15 @@
+EVALUATION Scripts clients 2022 - SESSION 1
+
+Rendre interactif ce panier d'achat avec 2 composants principaux:
+- shopping cart 
+- item 
+
+Les datas sont fournis et vous les intégrez dans une localStorage 'items'
+
+Le code promo doit être dans la liste suivante: 'promo', 'kdo'
+pour avoir la réduction de 10%
+
+2 Versions: modern Vanilla JS et Vite VUE
+
+
+
