@@ -10,8 +10,8 @@ export default function getTemplate(data: Cart): string
               <div class="col">
                 <h4><b>Shopping Cart</b></h4>
               </div>
-              <div class="col align-self-center text-right text-muted">
-                3 items
+              <div class="col align-self-center text-right text-muted item-count">
+                <strong>3</strong> items
               </div>
             </div>
           </div>

@@ -24,6 +24,7 @@ export default class Cart{
     {
         this._renderSelf();
         this._renderItems();
+        this._renderItemsCount();
     }
 
     private _renderSelf(): void
@@ -34,6 +35,11 @@ export default class Cart{
     private _renderItems() :void{  
         this._items.forEach(item => item.render('.items-list'));
     }
+
+    private _renderItemsCount() :void{
+        const countElem :HTMLElement = document.querySelector(".item-count strong")!;
+        countElem.innerText = this._items.length.toString();
+      }
 
     // ------------------------------
     // GETTERS
