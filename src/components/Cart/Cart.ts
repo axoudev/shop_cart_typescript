@@ -5,26 +5,51 @@ export default class Cart{
     private _items: Item[];
     private _discount: number;
     private _elem: HTMLElement;
+    private _itemsPrice: number;
+    private _finalPrice: number;
+    private _deliveryPrice: number;
 
-    constructor(elem: string, items: {id: number, name: string, category: string, price: number, quantity: number}[], discount: number = 0){
+    constructor(elem: string, items: {id: number, name: string, category: string, price: number, quantity: number}[]){
         this._items = [];
-        this._discount = discount;
         this._elem = document.querySelector(elem)!;
+        this._discount = 0;
+        this._itemsPrice = 0;
+        this._finalPrice = 0;
+        this._deliveryPrice = 0;
         this._loadItems(items);
+        this._setPrices();
         this.renderAll();
     }
 
-    private _loadItems(items :{id: number, name: string, category: string, price: number, quantity: number}[]) :void {
+    private _loadItems(items :{id: number, name: string, category: string, price: number, quantity: number}[]): void 
+    {
         items.forEach(item => {
           this._items.push(new Item(item, this));
         });
-      }
+    }
+
+    private _setPrices(): void
+    {
+        this._setItemsPrice();
+        this._setFinalPrice();
+    }
+
+    private _setItemsPrice(): void
+    {
+        this._items.forEach(item => {
+            this._itemsPrice += item.price * item.quantity;
+        });
+    }
+
+    private _setFinalPrice(): void
+    {
+        this._finalPrice = (this._itemsPrice + this._deliveryPrice) - (this._itemsPrice + this._deliveryPrice) * this._discount;
+    }
 
     public renderAll(): void
     {
         this._renderSelf();
         this._renderItems();
-        this._renderItemsCount();
     }
 
     private _renderSelf(): void
@@ -36,16 +61,19 @@ export default class Cart{
         this._items.forEach(item => item.render('.items-list'));
     }
 
-    private _renderItemsCount() :void{
-        const countElem :HTMLElement = document.querySelector(".item-count strong")!;
-        countElem.innerText = this._items.length.toString();
-      }
-
     // ------------------------------
     // GETTERS
     // ------------------------------
 
     public get items(): Item[]{
         return this._items
+    }
+
+    public get itemsPrice(): number{
+        return this._itemsPrice;
+    }
+
+    public get finalPrice(): number{
+        return this._finalPrice;
     }
 }

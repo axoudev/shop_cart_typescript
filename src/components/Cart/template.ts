@@ -11,7 +11,7 @@ export default function getTemplate(data: Cart): string
                 <h4><b>Shopping Cart</b></h4>
               </div>
               <div class="col align-self-center text-right text-muted item-count">
-                <strong>3</strong> items
+                ${data.items.length} items
               </div>
             </div>
           </div>
@@ -31,8 +31,8 @@ export default function getTemplate(data: Cart): string
           </div>
           <hr />
           <div class="row">
-            <div class="col" style="padding-left: 0">3 ITEMS</div>
-            <div class="col text-right">&euro; 155.00</div>
+            <div class="col" style="padding-left: 0">${data.items.length} ITEMS</div>
+            <div class="col text-right">&euro; ${data.itemsPrice}</div>
           </div>
           <form action="#">
             <p>SHIPPING</p>
@@ -55,7 +55,7 @@ export default function getTemplate(data: Cart): string
             style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0"
           >
             <div class="col">TOTAL PRICE</div>
-            <div class="col text-right">&euro; 175.50</div>
+            <div class="col text-right">&euro; ${data.finalPrice}</div>
           </div>
           <button class="btn">CHECKOUT</button>
         </div>
