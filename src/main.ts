@@ -6,4 +6,3 @@ import Cart from './components/Cart/Cart';
 
 let cart: Cart = new Cart('#app', items);
 
-console.table(cart.items);

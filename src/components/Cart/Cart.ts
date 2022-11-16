@@ -1,5 +1,6 @@
 import Item from '../Item/Item';
 import getTemplate from './template';
+import { coupons } from '../../js/data';
 
 export default class Cart{
     private _items: Item[];
@@ -16,9 +17,11 @@ export default class Cart{
         this._itemsPrice = 0;
         this._finalPrice = 0;
         this._deliveryPrice = 0;
+
         this._loadItems(items);
         this._setPrices();
         this.renderAll();
+        this._activateElements();
     }
 
     private _loadItems(items :{id: number, name: string, category: string, price: number, quantity: number}[]): void 
@@ -36,6 +39,7 @@ export default class Cart{
 
     private _setItemsPrice(): void
     {
+        this._itemsPrice = 0;
         this._items.forEach(item => {
             this._itemsPrice += item.price * item.quantity;
         });
@@ -50,6 +54,28 @@ export default class Cart{
     {
         this._renderSelf();
         this._renderItems();
+    }
+
+    private _activateElements(): void
+    {
+        this._activateCouponInput();
+    }
+
+    private _activateCouponInput(){
+        const couponInput :HTMLInputElement = this._elem.querySelector(".code-input")!;
+        couponInput.onkeyup = (e) => {
+            if(e.code === "Enter"){
+                coupons.forEach(coupon => {
+                    if(coupon.name == couponInput.value){
+                        this._discount = coupon.discount;
+                        this._setPrices();
+                        this.renderAll();
+
+                        document.querySelector('.active-coupons')!.innerHTML = coupon.name;
+                    }
+                });
+            }
+        }
     }
 
     private _renderSelf(): void
@@ -75,5 +101,9 @@ export default class Cart{
 
     public get finalPrice(): number{
         return this._finalPrice;
+    }
+
+    public get discount(): number{
+        return this._discount;
     }
 }

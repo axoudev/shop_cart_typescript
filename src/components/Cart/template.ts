@@ -47,8 +47,14 @@ export default function getTemplate(data: Cart): string
                 Express-Delivery- &euro;10.00
               </option>
             </select>
-            <p>GIVE CODE [10% reduction]</p>
-            <input type="text" placeholder="Your code here " />
+            <div class="coupons">
+                <p>GIVE CODE [10% reduction]</p>
+                <input class="code-input" type="text" placeholder="Your code here " />
+                coupon actif: 
+                <div class="active-coupons">
+                
+                </div>
+            </div>
           </form>
           <div
             class="row"
