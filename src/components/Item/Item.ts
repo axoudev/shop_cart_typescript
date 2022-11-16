@@ -23,7 +23,7 @@ export default class Item{
         const newItem :HTMLElement = document.createElement('div');
         document.querySelector(parentClass)?.append(newItem);
         newItem.outerHTML = getTemplate(this);
-      }
+    }
 
     // ------------------------------
     // GETTERS

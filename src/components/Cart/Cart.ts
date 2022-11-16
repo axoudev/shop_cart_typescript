@@ -59,9 +59,10 @@ export default class Cart{
     private _activateElements(): void
     {
         this._activateCouponInput();
+        this._activateDeliverySelect();
     }
 
-    private _activateCouponInput(){
+    private _activateCouponInput(): void{
         const couponInput :HTMLInputElement = this._elem.querySelector(".code-input")!;
         couponInput.onkeyup = (e) => {
             if(e.code === "Enter"){
@@ -70,12 +71,20 @@ export default class Cart{
                         this._discount = coupon.discount;
                         this._setPrices();
                         this.renderAll();
-
                         document.querySelector('.active-coupons')!.innerHTML = coupon.name;
                     }
                 });
             }
         }
+    }
+    
+    private _activateDeliverySelect(): void{
+        const deliverySelect :HTMLSelectElement = this._elem.querySelector("select")!;
+        deliverySelect.addEventListener('change', () => {
+            const value = deliverySelect.options[deliverySelect.selectedIndex].value;
+            this._deliveryPrice = Number(value);
+            console.log(this._deliveryPrice);
+        });
     }
 
     private _renderSelf(): void

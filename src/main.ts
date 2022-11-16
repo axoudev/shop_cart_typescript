@@ -1,6 +1,6 @@
 import './style.css'
 
-import { items} from './js/data';
+import {items} from './js/data';
 import Cart from './components/Cart/Cart';
 
 
