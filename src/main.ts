@@ -9,5 +9,5 @@ if(localStorage.getItem('items') === null){
 
 const items = JSON.parse(localStorage.getItem('items')!);
 
-let cart: Cart = new Cart('#app', items);
+new Cart('#app', items);
 

@@ -16,7 +16,7 @@ export default class Cart{
         this._discount = 0;
         this._itemsPrice = 0;
         this._finalPrice = 0;
-        this._deliveryPrice = 0;
+        localStorage.getItem('deliveryPrice') == null ? this._deliveryPrice = 0 : this._deliveryPrice = Number(localStorage.getItem('deliveryPrice'));
 
         this._loadItems(items);
         this.setPrices();
@@ -60,6 +60,12 @@ export default class Cart{
     private _renderSelf(): void
     {
         this._elem.innerHTML = getTemplate(this);
+        const options: NodeListOf<HTMLOptionElement> = document.querySelectorAll('.delivery-select option');
+        options.forEach(option => {
+            if(Number(option.value) == this._deliveryPrice ){
+                option.setAttribute('selected', 'true');
+            }
+        });
     }
 
     private _renderItems() :void{  
@@ -101,12 +107,12 @@ export default class Cart{
     
     private _activateDeliverySelect(): void{
         const deliverySelect :HTMLSelectElement = this._elem.querySelector(".delivery-select")!;
-        console.log(deliverySelect);
         deliverySelect.onchange = () => {
             let value = deliverySelect.options[deliverySelect.selectedIndex].value;
             this._deliveryPrice = Number(value);
             this.setPrices();
             this.renderPrices();
+            localStorage.deliveryPrice = this._deliveryPrice;
         };
     }
 
@@ -120,7 +126,7 @@ export default class Cart{
 
     private _toIndexedArray(items: Item[]){
         const itemsIndexedArray: {id: number, name: string, category: string, price: number, image: string, quantity: number}[] = [];
-        this._items.forEach(item => {
+        items.forEach(item => {
             itemsIndexedArray.push({id: item.id, name: item.name, category: item.category, price: item.price, image: item.image, quantity: item.quantity});
         });
         return itemsIndexedArray;
