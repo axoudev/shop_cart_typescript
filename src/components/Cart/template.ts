@@ -34,9 +34,9 @@ export default function getTemplate(data: Cart): string
             <div class="col" style="padding-left: 0">${data.items.length} ITEMS</div>
             <div class="col text-right">&euro; ${data.itemsPrice}</div>
           </div>
-          <form action="#">
+          <form>
             <p>SHIPPING</p>
-            <select>
+            <select class="delivery-select">
               <option class="text-muted" value="0" disabled selected>
                 Choose your delivery
               </option>
@@ -61,7 +61,7 @@ export default function getTemplate(data: Cart): string
             style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0"
           >
             <div class="col">TOTAL PRICE</div>
-            <div class="col text-right">&euro; ${data.finalPrice}</div>
+            <div class="col text-right">&euro; <span class="total-price">${data.finalPrice}</span></div>
           </div>
           <button class="btn">CHECKOUT</button>
         </div>

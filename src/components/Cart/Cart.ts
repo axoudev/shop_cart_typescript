@@ -70,7 +70,7 @@ export default class Cart{
                     if(coupon.name == couponInput.value){
                         this._discount = coupon.discount;
                         this._setPrices();
-                        this.renderAll();
+                        this._elem.querySelector(".total-price")!.innerHTML = String(this._finalPrice);
                         document.querySelector('.active-coupons')!.innerHTML = coupon.name;
                     }
                 });
@@ -79,12 +79,14 @@ export default class Cart{
     }
     
     private _activateDeliverySelect(): void{
-        const deliverySelect :HTMLSelectElement = this._elem.querySelector("select")!;
-        deliverySelect.addEventListener('change', () => {
-            const value = deliverySelect.options[deliverySelect.selectedIndex].value;
+        const deliverySelect :HTMLSelectElement = this._elem.querySelector(".delivery-select")!;
+        console.log(deliverySelect);
+        deliverySelect.onchange = () => {
+            let value = deliverySelect.options[deliverySelect.selectedIndex].value;
             this._deliveryPrice = Number(value);
-            console.log(this._deliveryPrice);
-        });
+            this._setPrices();
+            this._elem.querySelector(".total-price")!.innerHTML = String(this._finalPrice);
+        };
     }
 
     private _renderSelf(): void
