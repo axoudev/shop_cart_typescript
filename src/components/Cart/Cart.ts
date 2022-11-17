@@ -4,11 +4,12 @@ import { coupons } from '../../js/data';
 
 export default class Cart{
     private _items: Item[];
-    private _discount: number;
     private _elem: HTMLElement;
     private _itemsPrice: number;
-    private _finalPrice: number;
     private _deliveryPrice: number;
+    private _discount: number;
+    private _finalPrice: number;
+    
 
     constructor(elem: string, items: {id: number, name: string, category: string, price: number, quantity: number, image: string}[]){
         this._items = [];
