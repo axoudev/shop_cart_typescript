@@ -34,28 +34,26 @@ export default function getTemplate(data: Cart): string
             <div class="col" style="padding-left: 0"><span class="item-count">${data.items.length}</span> ITEMS</div>
             <div class="col text-right">&euro; <span class="items-price">${data.itemsPrice}</span></div>
           </div>
-          <form>
-            <p>SHIPPING</p>
-            <select class="delivery-select">
-              <option class="text-muted" value="0" disabled selected>
-                Choose your delivery
-              </option>
-              <option class="text-muted" value="5">
-                Standard-Delivery- &euro;5.00
-              </option>
-              <option class="text-muted" value="10">
-                Express-Delivery- &euro;10.00
-              </option>
-            </select>
-            <div class="coupons">
-                <p>GIVE CODE [10% reduction]</p>
-                <input class="code-input" type="text" placeholder="Your code here " />
-                coupon actif: 
-                <div class="active-coupons">
-                
-                </div>
-            </div>
-          </form>
+          <p>SHIPPING</p>
+          <select class="delivery-select">
+            <option class="text-muted" value="0" disabled selected>
+              Choose your delivery
+            </option>
+            <option class="text-muted" value="5">
+              Standard-Delivery- &euro;5.00
+            </option>
+            <option class="text-muted" value="10">
+              Express-Delivery- &euro;10.00
+            </option>
+          </select>
+          <div class="coupons">
+              <p>GIVE CODE [10% reduction]</p>
+              <input class="code-input" type="text" placeholder="Your code here " />
+              coupon actif: 
+              <div class="active-coupons">
+              
+              </div>
+          </div>
           <div
             class="row"
             style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0"
