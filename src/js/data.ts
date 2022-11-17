@@ -1,8 +1,7 @@
-export const items :{id: number, name: string, category: string, price: number, quantity: number}[] = [
-  {id: 1, name: "T-shirt cotton 1", category: "T-shirt", price: 50.0, quantity: 3},
-  {id: 2, name: "T-shirt cotton 2", category: "T-shirt", price: 52.0, quantity: 1},
-  {id: 3, name: "T-shirt cotton 3", category: "T-shirt", price: 53.0, quantity: 5},
-  {id: 4, name: "T-shirt cotton 3", category: "T-shirt", price: 53.0, quantity: 5},
+export const baseItems :{id: number, name: string, category: string, price: number, image: string, quantity: number}[] = [
+  {id:1666439275441,category:"Loisirs",name:"Pull Gonflable",price:44, image: "http://placeimg.com/101/101/people", quantity:1},
+  {id:1666439275442,category:"Loisirs",name:"Bretelles rigides",price:24, image: "http://placeimg.com/102/102/people",quantity:1},
+  {id:1666439275443,category:"Loisirs",name:"Slip en crochet",price:13.5, image: "http://placeimg.com/103/103/people",quantity:1}
 ];
 
 export const coupons :{name: string, discount: number}[] = [

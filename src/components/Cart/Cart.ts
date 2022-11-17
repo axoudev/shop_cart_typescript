@@ -10,7 +10,7 @@ export default class Cart{
     private _finalPrice: number;
     private _deliveryPrice: number;
 
-    constructor(elem: string, items: {id: number, name: string, category: string, price: number, quantity: number}[]){
+    constructor(elem: string, items: {id: number, name: string, category: string, price: number, quantity: number, image: string}[]){
         this._items = [];
         this._elem = document.querySelector(elem)!;
         this._discount = 0;
@@ -19,19 +19,19 @@ export default class Cart{
         this._deliveryPrice = 0;
 
         this._loadItems(items);
-        this._setPrices();
+        this.setPrices();
         this.renderAll();
         this._activateElements();
     }
 
-    private _loadItems(items :{id: number, name: string, category: string, price: number, quantity: number}[]): void 
+    private _loadItems(items :{id: number, name: string, category: string, price: number, quantity: number, image: string}[]): void 
     {
         items.forEach(item => {
           this._items.push(new Item(item, this));
         });
     }
 
-    private _setPrices(): void
+    public setPrices(): void
     {
         this._setItemsPrice();
         this._setFinalPrice();
@@ -42,6 +42,7 @@ export default class Cart{
         this._itemsPrice = 0;
         this._items.forEach(item => {
             this._itemsPrice += item.price * item.quantity;
+            console.log(this._itemsPrice);
         });
     }
 
@@ -54,6 +55,26 @@ export default class Cart{
     {
         this._renderSelf();
         this._renderItems();
+    }
+
+    private _renderSelf(): void
+    {
+        this._elem.innerHTML = getTemplate(this);
+    }
+
+    private _renderItems() :void{  
+        this._items.forEach(item => item.render('.items-list'));
+    }
+
+    public renderPrices(){
+        this._elem.querySelector(".items-price")!.innerHTML = String(this._itemsPrice);
+        this._elem.querySelector(".total-price")!.innerHTML = String(this._finalPrice);
+    }
+
+    public renderCounts(){
+        this._elem.querySelectorAll(".item-count").forEach(count => {
+            count.innerHTML = String(this._items.length);
+        });
     }
 
     private _activateElements(): void
@@ -69,8 +90,8 @@ export default class Cart{
                 coupons.forEach(coupon => {
                     if(coupon.name == couponInput.value){
                         this._discount = coupon.discount;
-                        this._setPrices();
-                        this._elem.querySelector(".total-price")!.innerHTML = String(this._finalPrice);
+                        this.setPrices();
+                        this.renderPrices();
                         document.querySelector('.active-coupons')!.innerHTML = coupon.name;
                     }
                 });
@@ -84,18 +105,29 @@ export default class Cart{
         deliverySelect.onchange = () => {
             let value = deliverySelect.options[deliverySelect.selectedIndex].value;
             this._deliveryPrice = Number(value);
-            this._setPrices();
-            this._elem.querySelector(".total-price")!.innerHTML = String(this._finalPrice);
+            this.setPrices();
+            this.renderPrices();
         };
     }
 
-    private _renderSelf(): void
-    {
-        this._elem.innerHTML = getTemplate(this);
+    public destroyItem(id: number): void{
+        this._items.splice(this._items.findIndex(item => item.id == id), 1);
+        this.refreshLocalStorage();
+        this.setPrices();
+        this.renderPrices();
+        this.renderCounts();
     }
 
-    private _renderItems() :void{  
-        this._items.forEach(item => item.render('.items-list'));
+    private _toIndexedArray(items: Item[]){
+        const itemsIndexedArray: {id: number, name: string, category: string, price: number, image: string, quantity: number}[] = [];
+        this._items.forEach(item => {
+            itemsIndexedArray.push({id: item.id, name: item.name, category: item.category, price: item.price, image: item.image, quantity: item.quantity});
+        });
+        return itemsIndexedArray;
+    }
+
+    public refreshLocalStorage(){
+        localStorage.setItem('items', JSON.stringify(this._toIndexedArray(this._items)));
     }
 
     // ------------------------------
@@ -116,5 +148,9 @@ export default class Cart{
 
     public get discount(): number{
         return this._discount;
+    }
+
+    public get elem(): HTMLElement{
+        return this._elem;
     }
 }

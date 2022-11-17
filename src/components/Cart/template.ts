@@ -10,8 +10,8 @@ export default function getTemplate(data: Cart): string
               <div class="col">
                 <h4><b>Shopping Cart</b></h4>
               </div>
-              <div class="col align-self-center text-right text-muted item-count">
-                ${data.items.length} items
+              <div class="col align-self-center text-right text-muted">
+                <span class="item-count">${data.items.length}</span> items
               </div>
             </div>
           </div>
@@ -31,8 +31,8 @@ export default function getTemplate(data: Cart): string
           </div>
           <hr />
           <div class="row">
-            <div class="col" style="padding-left: 0">${data.items.length} ITEMS</div>
-            <div class="col text-right">&euro; ${data.itemsPrice}</div>
+            <div class="col" style="padding-left: 0"><span class="item-count">${data.items.length}</span> ITEMS</div>
+            <div class="col text-right">&euro; <span class="items-price">${data.itemsPrice}</span></div>
           </div>
           <form>
             <p>SHIPPING</p>

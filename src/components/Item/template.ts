@@ -3,12 +3,12 @@ import Item from './Item';
 export default function getTemplate(item: Item) :string
 {
     return `
-    <div class="row border-top border-bottom">
+    <div class="item row border-top border-bottom">
         <div class="row main align-items-center">
             <div class="col-2">
             <img
                 class="img-fluid"
-                src="http://placeimg.com/102/102/people"
+                src="${item.image}"
             />
             </div>
             <div class="col">
@@ -27,7 +27,7 @@ export default function getTemplate(item: Item) :string
             <div class="col">&euro; ${item.price}</div>
             <div>
             <a href="#">
-                <i class="fa-solid fa-circle-xmark"></i>
+                <i class="fa-solid fa-circle-xmark destroy"></i>
             </a>
             </div>
         </div>
